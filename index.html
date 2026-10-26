@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Denkus School</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#059669">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+[hidden]{display:none!important}
+:root{--g:#059669;--g2:#2dd4bf;--bg:#ecfaf4;--c:#ffffffdb;--t:#10231c;--m:#5b7268;--l:#d3ebe1;--sh:0 8px 30px #0596691f}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#07110e;--c:#10201acc;--t:#e6f5ee;--m:#8aa89b;--l:#21392f;--sh:0 8px 30px #0008}}
+:root[data-theme=dark]{--bg:#07110e;--c:#10201acc;--t:#e6f5ee;--m:#8aa89b;--l:#21392f;--sh:0 8px 30px #0008}
+:root[data-theme=light]{--bg:#ecfaf4;--c:#ffffffdb;--t:#10231c;--m:#5b7268;--l:#d3ebe1;--sh:0 8px 30px #0596691f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--t);min-height:100vh;background:var(--bg);
+background-image:radial-gradient(60vmax 40vmax at 0 0,color-mix(in srgb,var(--g) 30%,transparent),transparent 60%),radial-gradient(50vmax 40vmax at 100% 100%,color-mix(in srgb,var(--g2) 26%,transparent),transparent 60%);background-attachment:fixed}
+header{display:flex;gap:10px;align-items:center;padding:12px 14px;background:linear-gradient(120deg,var(--g),var(--g2));color:#fff;position:sticky;top:0;z-index:5;box-shadow:0 6px 24px #0003}
+header b{font-size:18px;margin-right:auto;letter-spacing:.2px}
+header button{background:#ffffff2e;color:#fff;border:1px solid #ffffff40;border-radius:12px;padding:7px 12px;font-size:15px;cursor:pointer;backdrop-filter:blur(6px)}
+aside{position:fixed;top:0;bottom:0;left:0;width:280px;background:var(--c);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:9;transform:translateX(-100%);transition:transform .25s cubic-bezier(.2,.8,.2,1);overflow:auto;border-right:1px solid var(--l);box-shadow:10px 0 40px #0004}
+aside.open{transform:none}#ov{position:fixed;inset:0;background:#0009;backdrop-filter:blur(2px);z-index:8}
+.hd{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;padding:34px 18px 18px;position:relative;overflow:hidden}
+.hd:after{content:"";position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:#ffffff22}
+.hd b{font-size:20px;display:block;position:relative}.hd span{position:relative;opacity:.85;font-size:13px}
+aside nav{padding:8px 0}
+aside nav button{display:block;width:calc(100% - 20px);margin:2px 10px;text-align:left;background:none;border:0;border-radius:12px;color:var(--t);padding:12px 14px;font:inherit;cursor:pointer;transition:.15s}
+aside nav button:hover{background:var(--l)}
+aside nav button.on{background:linear-gradient(120deg,var(--g),var(--g2));color:#fff;font-weight:600;box-shadow:0 6px 16px color-mix(in srgb,var(--g) 40%,transparent)}
+aside nav h5{margin:12px 18px 2px}
+@media(min-width:900px){aside{transform:none;box-shadow:none}#ov,#mb{display:none!important}main,header{margin-left:280px}}
+main{max-width:860px;margin:0 auto;padding:16px}
+main>*{animation:up .4s cubic-bezier(.2,.8,.2,1) both}main>*:nth-child(2){animation-delay:.05s}main>*:nth-child(3){animation-delay:.1s}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{background:var(--c);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--l);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+.card h2,.card h3{margin:.2em 0 .5em}
+.hero{text-align:center;padding:28px 18px;margin-top:6vh}
+.hero h2{font-size:26px;background:linear-gradient(120deg,var(--g),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent;margin:.3em 0 .1em}
+.hero .tabs,.hero #f1,.hero #f2{text-align:left}
+.logo{width:88px;height:88px;border-radius:24px;box-shadow:0 12px 30px color-mix(in srgb,var(--g) 45%,transparent);animation:fl 4s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-6px)}}
+input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--l);border-radius:14px;background:color-mix(in srgb,var(--bg) 70%,transparent);color:var(--t);font:inherit;margin:4px 0 9px;outline:0;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--g);box-shadow:0 0 0 4px color-mix(in srgb,var(--g) 22%,transparent)}
+.btn{background:linear-gradient(120deg,var(--g),var(--g2));color:#fff;border:0;border-radius:14px;padding:11px 18px;cursor:pointer;font:inherit;font-weight:600;box-shadow:0 6px 16px color-mix(in srgb,var(--g) 35%,transparent);transition:.15s}
+.btn:active{transform:scale(.96)}
+.btn.s{background:none;color:var(--m);padding:5px 10px;box-shadow:none;font-weight:500}.btn.s:hover{background:var(--l)}
+.m{color:var(--m);font-size:13px}.err{color:#ef4444}
+table{width:100%;border-collapse:collapse}td,th{padding:8px 6px;border-bottom:1px solid var(--l);text-align:left}th{color:var(--m);font-size:12px;text-transform:uppercase}
+.bar{height:9px;border-radius:6px;background:var(--l);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--g2));border-radius:6px;animation:gr .8s ease both}
+@keyframes gr{from{width:0!important}}
+.tabs{display:flex;gap:8px;margin-bottom:12px;background:var(--l);padding:5px;border-radius:16px}
+.tabs .btn{flex:1;background:none;color:var(--m);box-shadow:none;padding:9px 6px}.tabs .btn.on{background:linear-gradient(120deg,var(--g),var(--g2));color:#fff;box-shadow:0 4px 12px color-mix(in srgb,var(--g) 40%,transparent)}
+a{color:var(--g)}.stat b{font-size:28px;display:block;background:linear-gradient(120deg,var(--g),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#bb{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;background:var(--c);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--l);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+#bb button{flex:1;background:none;border:0;color:var(--m);font:inherit;font-size:11px;padding:6px 2px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+#bb button i{font-style:normal;font-size:20px}
+#bb button.on{color:var(--g);font-weight:700;background:color-mix(in srgb,var(--g) 14%,transparent)}
+main{padding-bottom:96px}
+@media(min-width:900px){#bb{display:none!important}main{padding-bottom:30px}}
+.star{position:relative;overflow:hidden;animation:pop .7s cubic-bezier(.2,1.4,.3,1) both}
+.star:before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent,color-mix(in srgb,var(--g2) 30%,transparent),transparent 40%);animation:spin 7s linear infinite}
+.star>*{position:relative}
+@keyframes pop{from{opacity:0;transform:scale(.6) rotate(-4deg)}to{opacity:1;transform:none}}@keyframes spin{to{transform:rotate(1turn)}}
+.chip{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12px;font-weight:600;background:color-mix(in srgb,var(--g) 16%,transparent);color:var(--g);margin:2px 4px 2px 0;border:0;cursor:pointer;font-family:inherit}
+.chips{margin:8px 0}
+.bub{max-width:88%;padding:9px 13px;border-radius:16px;margin:6px 0;line-height:1.45;word-wrap:break-word}
+.bub.b{background:var(--l);border-bottom-left-radius:4px}
+.bub.u{background:linear-gradient(120deg,var(--g),var(--g2));color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.avatar{width:78px;height:78px;border-radius:50%;margin:0 auto 8px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;font-size:34px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px color-mix(in srgb,var(--g) 40%,transparent)}
+.mi{width:66px;padding:7px 4px;margin:0;text-align:center}
+details summary{cursor:pointer;padding:4px 0}
+.cert{background:#fffdf6;color:#222;border:10px double var(--g);padding:34px 20px;text-align:center;border-radius:6px;margin-bottom:14px}
+.cs1{letter-spacing:3px;text-transform:uppercase;font-weight:700;color:var(--g)}.cs2{font-family:Georgia,serif;font-size:30px;margin:10px 0 18px}
+.cs3{font-family:Georgia,serif;font-style:italic;font-size:36px;color:var(--g);border-bottom:2px solid #ccc;display:inline-block;padding:0 24px 4px;margin:8px 0 14px}
+.cs4{display:flex;justify-content:space-around;margin-top:34px}.cs4 span{min-width:130px;border-top:1px solid #999;padding-top:4px}
+@media print{body *{visibility:hidden}#certp,#certp *{visibility:visible}#certp{position:fixed;inset:0;background:#fff}header,aside,#bb,#gate{display:none!important}.cert{height:96vh;display:flex;flex-direction:column;justify-content:center}@page{size:landscape;margin:8mm}}
+</style></head><body>
+<header id="top" hidden><button id="mb">☰</button><b id="sn">School App</b><button id="th" title="Dark / light">🌓</button><button id="inst">⬇ Install app</button></header>
+<aside id="dr"><div class="hd"><b id="who">School App</b><span id="rl"></span></div><nav id="nav"></nav></aside><div id="ov" hidden></div>
+<main id="app"></main>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+const $=s=>document.querySelector(s),app=$('#app');
+const em=x=>/admin-restricted|operation-not-allowed/.test((x&&(x.code||x.message))||'')?'Setup needed: in Firebase Console > Authentication > Sign-in method, enable "Anonymous".':(x&&x.message)||String(x);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const link=s=>esc(s).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+const fmt=t=>t?new Date(t).toLocaleString():'';
+firebase.initializeApp(FIREBASE_CONFIG);
+const auth=firebase.auth(),db=firebase.database(),R=db.ref('schools/school_1');
+let me={role:'',key:'',name:''},off=[];
+const isStaff=()=>me.role==='admin'||me.role==='teacher',isAdmin=()=>me.role==='admin';
+const listen=(ref,fn)=>{ref.on('value',fn);off.push(()=>ref.off('value',fn))};
+const grp=x=>'Grade '+(x.grade||'?')+(x.section?' – '+x.section:'');
+const srt=(o)=>Object.keys(o).sort((a,b)=>a.localeCompare(b,0,{numeric:true}));
+const F=a=>a.map(([k,l,o])=>`<label class="m">${l}</label>`+(o?`<select id="f_${k}">${o.map(x=>`<option>${x}</option>`).join('')}</select>`:`<input id="f_${k}">`)).join('');
+const V=a=>Object.fromEntries(a.map(([k])=>[k,$('#f_'+k).value.trim()]));
+const lbl={feed:'Home Feed',reg:'Register Student',fee:'Monthly Fee Payment',info:'Account / Payment Info',stars:'Stars of the Week',results:'My Results',marks:'Mark List',bill:'Bill',report:'Weekly Report',lib:'Digital Library',tt:'Timetable',att:'Attendance',students:'Students / Reports',pay:'Monthly Payment Reports'};
+function go(v){off.forEach(f=>f());off=[];views[v]();$('#dr').classList.remove('open');$('#ov').hidden=true;scrollTo(0,0);
+  document.querySelectorAll('#nav button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}
+$('#mb').onclick=()=>{$('#dr').classList.add('open');$('#ov').hidden=false};$('#ov').onclick=()=>{$('#dr').classList.remove('open');$('#ov').hidden=true};
+
+function login(){
+  $('#top').hidden=true;$('#dr').hidden=true;
+  app.innerHTML=`<div class="card hero"><img src="icon-192.png" class="logo" alt=""><h2 id="lt">School App</h2><p class="m">Welcome 👋 Sign in to continue</p>
+  <div class="tabs"><button class="btn on" id="t1">Parent / Student</button><button class="btn" id="t2">Staff</button></div>
+  <div id="f1"><label class="m">Profile ID</label><input id="pid" inputmode="numeric" maxlength="8"><button class="btn" id="b1">Open</button>
+  <p class="m">New student? <a href="#" id="nw">Register here</a></p></div>
+  <div id="f2" hidden><input id="em" type="email" placeholder="Staff email"><input id="pw" type="password" placeholder="Password"><button class="btn" id="b2">Log in</button></div>
+  <p class="err" id="e"></p>${standalone?'':'<button class="btn" id="ib" onclick="installApp()">⬇ Download / Install app</button>'}</div>`;
+  $('#t1').onclick=()=>{f1.hidden=false;f2.hidden=true;t1.classList.add('on');t2.classList.remove('on')};
+  $('#t2').onclick=()=>{f1.hidden=true;f2.hidden=false;t2.classList.add('on');t1.classList.remove('on')};
+  $('#b1').onclick=async()=>{const id=$('#pid').value.trim();if(!id)return;
+    try{if(!auth.currentUser)await auth.signInAnonymously();await openUser(id)}catch(x){$('#e').textContent=em(x)}};
+  $('#nw').onclick=async e=>{e.preventDefault();me={role:'guest',key:'',name:''};try{if(!auth.currentUser)await auth.signInAnonymously();start()}catch(x){me.role='';$('#e').textContent=em(x)}};
+  $('#b2').onclick=async()=>{try{await auth.signInWithEmailAndPassword($('#em').value.trim(),$('#pw').value)}catch(x){$('#e').textContent='Wrong email or password'}};
+}
+async function openUser(id){
+  const ix=(await R.child('profileIdIndex/'+id).once('value')).val();
+  const key=ix&&typeof ix==='object'?(ix.key||ix.registrationKey||Object.values(ix)[0]):ix;
+  const reg=key&&(await R.child('registrations/'+key).once('value')).val();
+  if(!reg)throw new Error('Profile ID not found');
+  localStorage.pid=id;me={role:'user',key,name:reg.parentStudentName||''};start();
+}
+async function staff(u){
+  const r=(await db.ref('desktop/users/'+u.uid+'/role').once('value')).val();
+  if(r!=='admin'&&r!=='teacher'){await auth.signOut();login();$('#e').textContent='This account is not staff';return}
+  me={role:r,key:'',name:u.email};start();
+}
+auth.onAuthStateChanged(async u=>{
+  if(me.role)return;
+  try{if(u&&!u.isAnonymous)return staff(u);if(u&&localStorage.pid)return await openUser(localStorage.pid)}catch(e){}
+  login();
+});
+async function logout(){localStorage.removeItem('pid');me={role:'',key:'',name:''};await auth.signOut();login()}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+let ip;const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+if(standalone)$('#inst').hidden=true;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();ip=e;$('#inst').hidden=false;const b=$('#ib');if(b)b.hidden=false});
+addEventListener('appinstalled',()=>{ip=null;$('#inst').hidden=true;const b=$('#ib');if(b)b.hidden=true});
+async function installApp(){
+  if(ip){ip.prompt();await ip.userChoice;ip=null;return}
+  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  alert(ios?'To install: tap the Share button, then "Add to Home Screen".':'To install: open the browser menu (⋮) and tap "Install app" or "Add to Home screen".')}
+$('#inst').onclick=installApp;
+
+function start(){
+  R.child('settings/schoolName').once('value').then(s=>{if(s.val()){$('#sn').textContent=s.val();$('#who').textContent=s.val()}}).catch(()=>{});
+  const t=me.role==='guest'?['reg','info']:isStaff()?['feed','tt','exams','stars','students','send','marker','cert','lib','tools','info'].concat(isAdmin()?['notif','manual','finance','ttedit','pay','settings']:[]):['feed','profile','results','marks','bill','report','att','fee','tt','exams','stars','lib','tools','reg','info'];
+  $('#rl').textContent=isStaff()?me.role==='admin'?'Admin':'Teacher':me.name;
+  $('#nav').innerHTML=t.map(v=>`<button data-v="${v}" onclick="go('${v}')">${(ico[v]||'•')+' '+lbl[v]}</button>`).join('')+'<h5></h5><button onclick="logout()">Logout / Reset</button>';
+  $('#top').hidden=false;$('#dr').hidden=false;go(t[0]);
+}
+const done=m=>app.innerHTML=`<div class="card"><h3>✔ ${m}</h3></div>`;
+const views={
+feed(){
+  app.innerHTML=(isAdmin()?`<div class="card"><textarea id="tx" rows="3" placeholder="Write a post (Telegram / PDF links are clickable)"></textarea><button class="btn" id="pb">Post</button></div>`:'')+'<div id="ps"></div>';
+  if(isAdmin())$('#pb').onclick=async()=>{const t=$('#tx').value.trim();if(!t)return;
+    const r=R.child('posts').push();await r.set({id:r.key,schoolId:'school_1',textContent:t,mediaType:'text',timestamp:Date.now(),likesCount:0});$('#tx').value=''};
+  const uid=auth.currentUser.uid;
+  listen(R.child('posts').orderByChild('timestamp').limitToLast(50),s=>{
+    const a=[];s.forEach(c=>{a.unshift(Object.assign({k:c.key},c.val()))});const week=Date.now()-7*864e5;
+    $('#ps').innerHTML=a.filter(p=>p.timestamp>week).map(p=>{const lk=p.likes&&p.likes[uid];return `<div class="card"><div>${link(p.textContent)}</div>
+    <div class="m">${fmt(p.timestamp)}</div><button class="btn s" onclick="like('${p.k}',${!!lk})">${lk?'♥':'♡'} ${p.likesCount||0}</button>
+    <button class="btn s" onclick="cm('${p.k}')">💬 ${p.commentsCount||0}</button>${isAdmin()?`<button class="btn s" onclick="delPost('${p.k}')">Delete</button>`:''}<div id="c${p.k}"></div></div>`}).join('')||'<p class="m">No posts yet.</p>'});
+},
+reg(){const A=[['parentStudentName','Student full name'],['parentFullName','Parent full name'],['parentPhone','Parent phone'],['city','City'],['werda','Woreda'],['kebele','Kebele'],['zone','Zone'],['houseNumber','House number'],['grade','Grade (1-12)'],['sex','Sex',['Male','Female']],['paymentMethod','Payment method',['CBE','BOA','Telebirr','Cash']]];
+  app.innerHTML=`<div class="card"><h3>Register Student</h3>${F(A)}<button class="btn" id="sv">Submit</button><p class="err" id="e"></p></div>`;
+  $('#sv').onclick=async()=>{const v=V(A);if(!v.parentStudentName||!v.parentPhone||!v.grade){$('#e').textContent='Fill name, phone and grade';return}
+    const r=R.child('registrations').push();await r.set(Object.assign(v,{id:r.key,schoolId:'school_1',timestamp:Date.now(),connected:false}));
+    R.child('admin_notifications').push({type:'profile',studentName:v.parentStudentName,timestamp:Date.now()});
+    done('Sent. The admin will confirm and give you a Profile ID.')}},
+fee(){const A=[['studentName','Student name'],['parentName','Parent name'],['month','Month'],['amount','Amount (birr)'],['grade','Grade'],['section','Section'],['profileId','Profile ID']];
+  app.innerHTML=`<div class="card"><h3>Monthly Fee Payment</h3>${F(A)}<button class="btn" id="sv">Submit payment</button><p class="err" id="e"></p></div>`;
+  $('#f_studentName').value=me.name;$('#f_profileId').value=localStorage.pid||'';
+  $('#sv').onclick=async()=>{const v=V(A);if(!v.studentName||!v.month||!v.amount){$('#e').textContent='Fill name, month and amount';return}
+    const r=R.child('monthly_payments').push();await r.set(Object.assign(v,{id:r.key,schoolId:'school_1',timestamp:Date.now()}));
+    R.child('admin_notifications').push({type:'payment',studentName:v.studentName,timestamp:Date.now()});done('Payment sent to the school.')}},
+info(){const A=[['adminPhone','Admin phone'],['cbeAccount','CBE account'],['boaAccount','BOA account'],['telebirrAccount','Telebirr account']];
+  app.innerHTML=`<div class="card"><h3>Account / Payment Info</h3>${F(A)}${isAdmin()?'<button class="btn" id="sv">Save</button>':''}</div>`;
+  A.forEach(([k])=>{$('#f_'+k).readOnly=!isAdmin()});
+  R.child('payment_info').once('value').then(s=>A.forEach(([k])=>$('#f_'+k).value=(s.val()||{})[k]||''));
+  if(isAdmin())$('#sv').onclick=async()=>{await R.child('payment_info').update(V(A));$('#sv').textContent='Saved ✔'}},
+stars(){app.innerHTML=(isAdmin()?`<div class="card"><input id="sn1" placeholder="Name"><input id="sc1" placeholder="Category (Student 1 … Teacher)"><textarea id="sd1" rows="2" placeholder="Why?"></textarea><button class="btn" id="sv">Add</button></div>`:'')+'<div id="g"></div>';
+  if(isAdmin())$('#sv').onclick=async()=>{if(!sn1.value)return;const r=R.child('weekly_features').push();
+    await r.set({id:r.key,name:sn1.value,category:sc1.value,description:sd1.value,mediaType:'text',timestamp:Date.now(),likes:0,commentsCount:0});sn1.value=sd1.value=''};
+  listen(R.child('weekly_features'),s=>{const a=[];s.forEach(c=>{a.unshift(Object.assign({k:c.key},c.val()))});
+    $('#g').innerHTML=a.map(x=>`<div class="card star"><b>⭐ ${esc(x.name)}</b> <span class="m">${esc(x.category)}</span><div>${esc(x.description)}</div><div class="m">${fmt(x.timestamp)}</div>${isAdmin()?`<button class="btn s" onclick="R.child('weekly_features/${x.k}').remove()">Delete</button>`:''}</div>`).join('')||'<p class="m">Nothing yet.</p>'})},
+tt(){const D=['Mon','Tue','Wed','Thu','Fri'];
+  app.innerHTML=`<div class="card"><label class="m">Grade</label><select id="tg">${[...Array(12)].map((_,i)=>`<option>${i+1}</option>`).join('')}</select><label class="m">Section</label><select id="ts"><option>A</option><option>B</option></select></div><div class="card" style="overflow:auto" id="tb"></div>`;
+  let snap=null;const draw=()=>{if(!snap)return;const id=(+tg.value)*10+(ts.value=='A'?1:2),c=snap.classes&&snap.classes[id];
+    if(!c){tb.innerHTML='<p class="m">No timetable published for this class yet.</p>';return}
+    const P=+snap.periods||7,g={};Object.values(c.cells||{}).forEach(x=>{g[x.p+'_'+x.d]=x});
+    let t='<table><tr><th></th>'+D.map(d=>'<th>'+d+'</th>').join('')+'</tr>';
+    for(let p=0;p<P;p++){t+='<tr><td><b>'+(p+1)+'</b></td>'+D.map((_,d)=>{const x=g[p+'_'+d];return '<td>'+(x?esc(x.subject||x.code)+'<div class="m">'+esc(x.teacher)+'</div>':'')+'</td>'}).join('')+'</tr>'}
+    tb.innerHTML=t+'</table>'};
+  tg.onchange=ts.onchange=draw;listen(R.child('timetable'),s=>{snap=s.val();draw()})},
+att(){app.innerHTML='<div class="card" id="r">Loading…</div>';
+  listen(R.child('attendance_inbox/'+me.key),s=>{const a=[];s.forEach(c=>{const v=c.val();if(v&&v.status)a.push([c.key,v])});a.sort((x,y)=>y[0].localeCompare(x[0]));
+    const p=a.filter(x=>/present/i.test(x[1].status)).length;
+    r.innerHTML=a.length?`<h3>${esc(me.name)}</h3><p>Present <b>${p}</b> of ${a.length} days</p><div class="bar"><i style="width:${Math.round(p/a.length*100)}%"></i></div><table>`+a.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1].status)}</td><td class="m">${esc(x[1].className)}</td></tr>`).join('')+'</table>':'<p class="m">No attendance sent yet.</p>'})},
+marks(){app.innerHTML='<div id="g"></div>';
+  listen(R.child('marklist_inbox/'+me.key),s=>{const a=[];s.forEach(c=>{a.push(c.val())});a.sort((x,y)=>(y.sentTimestamp||0)-(x.sentTimestamp||0));
+    g.innerHTML=a.map(v=>{const rows=[...Array(10)].map((_,i)=>{const k='sub_'+i,m=v.marks&&v.marks[k];if(typeof m!=='number')return '';const mx=(v.max&&v.max[k])||100;
+      return `<div>${esc((v.subjectNames&&v.subjectNames[k])||'Subject '+(i+1))} <b>${m} / ${mx}</b><div class="bar"><i style="width:${Math.min(100,m/mx*100)}%"></i></div></div>`}).join('');
+      return `<div class="card"><h3>${esc(v.subject||'Mark List')}</h3><div class="m">${esc(v.term)} ${esc(v.year)} · Grade ${esc(v.grade)}</div>${rows}${typeof v.total==='number'?`<p><b>Total: ${v.total}${v.totalMax?' / '+v.totalMax:''}</b></p>`:''}</div>`}).join('')||'<p class="m">No mark list sent yet.</p>'})},
+bill(){app.innerHTML='<div class="card" id="r">Loading…</div>';
+  listen(R.child('bills/'+me.key),s=>{const v=s.val();if(!v){r.innerHTML='<p class="m">No bill sent yet.</p>';return}
+    const rows=Object.keys(v.monthRows||{}).sort((a,b)=>a.slice(1)-b.slice(1)).map(k=>v.monthRows[k]);
+    r.innerHTML=`<h3>Bill · ${esc(v.academicYear)}</h3><div class="m">${esc(v.studentName)} · Grade ${esc(v.grade)}${v.section?' – '+esc(v.section):''}</div>
+    <p>Pay to: <b>${esc(v.adminAccount)}</b> ${esc(v.adminPhone)}</p><table>`+rows.map(x=>`<tr><td>${esc(x.monthLabelEn)}</td><td>${esc(x.monthlyFee)}</td><td><b>${esc(x.total)}</b></td></tr>`).join('')+'</table>'})},
+results(){
+  app.innerHTML='<div class="card" id="r">Loading…</div>';
+  listen(R.child('academic_performance/'+me.key),s=>{const v=s.val();
+    if(!v){r.innerHTML='<p class="m">No results published yet.</p>';return}
+    const sc=Object.values(v.scores||{});const avg=sc.length?Math.round(sc.reduce((a,b)=>a+(+b.score||0),0)/sc.length):0;
+    r.innerHTML=`<h3>${esc(v.studentName)} · Grade ${esc(v.grade)}</h3><p>Average: <b>${avg}%</b></p>`+
+    sc.map(x=>`<div>${esc(x.name)} <b>${esc(x.score)}</b><div class="bar"><i style="width:${+x.score||0}%"></i></div></div>`).join('')+`<p class="m">Updated ${fmt(v.updatedTimestamp)}</p>`});
+},
+report(){
+  app.innerHTML='<div class="card" id="r">Loading…</div>';
+  listen(R.child('weekly_reports/'+me.key),s=>{const v=s.val();
+    if(!v){r.innerHTML='<p class="m">No weekly report yet.</p>';return}
+    const g=(t,x,n)=>`<h4>${t}: ${esc(x&&x.score)}%</h4><div class="bar"><i style="width:${+(x&&x.score)||0}%"></i></div><p class="m">${esc(x&&x[n])}</p>`;
+    r.innerHTML=`<h3>${esc(v.studentName)} · ${esc(v.weekLabel)}</h3>`+g('Attendance',v.attendance,'note')+g('Health',v.medical,'details')+
+    `<h4>Strengths</h4><p>${esc(v.strengths&&v.strengths.text)}</p><h4>Needs work</h4><p>${esc(v.weakSpots&&v.weakSpots.text)}</p>`});
+},
+students(){
+  app.innerHTML='<div class="card"><span class="stat"><b id="n1">0</b>Students</span><input id="q" placeholder="Search name or Profile ID">'+(isAdmin()?'<button class="btn s" id="ex">Export CSV</button>':'')+'</div><div id="g"></div>';
+  listen(R.child('registrations'),s=>{const a=[];s.forEach(c=>{a.push(Object.assign(c.val(),{id:c.key}))});n1.textContent=a.length;if($('#ex'))$('#ex').onclick=()=>csv('students.csv',[['Name','Parent','Phone','Grade','Section','ProfileID']].concat(a.map(x=>[x.parentStudentName,x.parentFullName,x.parentPhone,x.grade,x.section,x.profileId])));
+    const draw=()=>{const q=$('#q').value.toLowerCase(),m={};
+      a.filter(x=>(x.parentStudentName+' '+x.profileId).toLowerCase().includes(q)).forEach(x=>{(m[grp(x)]=m[grp(x)]||[]).push(x)});
+      $('#g').innerHTML=srt(m).map(k=>`<div class="card"><h4>${esc(k)} (${m[k].length})</h4><table>`+
+        m[k].map(x=>`<tr><td>${esc(x.parentStudentName)}</td><td>${esc(x.parentFullName)}</td><td>${esc(x.parentPhone)}</td><td class="m">${x.profileId?'ID '+esc(x.profileId):(isAdmin()?`<button class="btn s" onclick="approve('${x.id}')">Approve</button>`:'pending')}${isAdmin()?`<button class="btn s" onclick="delReg('${x.id}')">✕</button>`:''}</td></tr>`).join('')+'</table></div>').join('')};
+    $('#q').oninput=draw;draw()});
+},
+pay(){
+  app.innerHTML='<button class="btn s" id="ex2">Export CSV</button><div id="g"></div>';
+  listen(R.child('monthly_payments'),s=>{const a=[];s.forEach(c=>{a.push(c.val())});a.sort((x,y)=>y.timestamp-x.timestamp);const m={};$('#ex2').onclick=()=>csv('payments.csv',[['Student','Grade','Section','Month','Amount','Date']].concat(a.map(x=>[x.studentName,x.grade,x.section,x.month,x.amount,fmt(x.timestamp)])));
+    a.forEach(x=>{(m[grp(x)]=m[grp(x)]||[]).push(x)});
+    $('#g').innerHTML=srt(m).map(k=>`<div class="card"><h4>${esc(k)} · total ${m[k].reduce((t,x)=>t+(+x.amount||0),0)}</h4><table>`+
+      m[k].map(x=>`<tr><td>${esc(x.studentName)}</td><td>${esc(x.month)}</td><td>${esc(x.amount)}</td><td class="m">${fmt(x.timestamp)}</td></tr>`).join('')+'</table></div>').join('')||'<p class="m">No payments yet.</p>'});
+},
+lib(){
+  app.innerHTML=(isAdmin()?`<div class="card"><input id="bt" placeholder="Book title"><input id="bs" placeholder="Subject"><input id="bg" placeholder="Grade (1-12 or All Grades)"><input id="bl" placeholder="Telegram link"><button class="btn" id="bb">Add book</button></div>`:'')+'<div id="g"></div>';
+  if(isAdmin())$('#bb').onclick=async()=>{if(!bt.value||!bl.value)return;const r=R.child('digital_library/books').push();
+    await r.set({id:r.key,title:bt.value,subject:bs.value,grade:bg.value||'All Grades',category:'Textbook',telegramLink:bl.value,timestamp:Date.now(),uploadedBy:'admin'});
+    R.child('digital_library/meta').set({lastTimestamp:Date.now()});bt.value=bs.value=bg.value=bl.value=''};
+  listen(R.child('digital_library/books'),s=>{const a=[];s.forEach(c=>{a.push(c.val())});a.sort((x,y)=>y.timestamp-x.timestamp);
+    $('#g').innerHTML=a.map(b=>`<div class="card"><b>${esc(b.title)}</b><div class="m">${esc(b.subject)} · Grade ${esc(b.grade)}</div>
+      <a class="btn" style="display:inline-block;margin-top:6px;text-decoration:none;color:#fff" href="${esc(b.telegramLink)}" target="_blank" rel="noopener">Download</a>
+      ${isAdmin()?`<button class="btn s" onclick="delBook('${esc(b.id)}')">Delete</button>`:''}</div>`).join('')||'<p class="m">No books yet.</p>'});
+}};
+async function like(k,liked){const r=R.child('posts/'+k);await r.child('likes/'+auth.currentUser.uid).set(liked?null:true);
+  r.child('likes').once('value').then(s=>r.child('likesCount').set(s.numChildren()))}
+async function cm(k){const d=$('#c'+k);if(d.innerHTML){d.innerHTML='';return}
+  const s=await R.child('posts/'+k+'/comments').once('value');let h='';
+  s.forEach(c=>{const v=c.val();h+=`<div class="m"><b>${esc(v.authorName)}</b>: ${esc(v.text)}${v.adminReply?`<br>↳ <i>${esc(v.adminReply)}</i>`:''}${isAdmin()?` <a href="#" onclick="rp('${k}','${c.key}');return false">reply</a>`:''}</div>`});
+  d.innerHTML=h+`<input id="ci${k}" placeholder="Write a comment"><button class="btn" onclick="ac('${k}')">Send</button>`}
+async function ac(k){const t=$('#ci'+k).value.trim();if(!t)return;const p=R.child('posts/'+k+'/comments'),r=p.push();
+  await r.set({id:r.key,userId:auth.currentUser.uid,authorName:me.name||(isAdmin()?'Admin':'Parent'),text:t,timestamp:Date.now()});
+  p.once('value').then(s=>R.child('posts/'+k+'/commentsCount').set(s.numChildren()))}
+function rp(k,c){const t=prompt('Reply');if(t)R.child('posts/'+k+'/comments/'+c+'/adminReply').set(t).then(()=>{$('#c'+k).innerHTML='';cm(k)})}
+const delPost=k=>confirm('Delete this post?')&&R.child('posts/'+k).remove();
+const delBook=k=>confirm('Delete this book?')&&R.child('digital_library/books/'+k).remove();
+/* ===== Added features ===== */
+Object.assign(lbl,{send:'Send to Parents',tools:'Student Tools',ttedit:'Edit Timetable'});
+const csv=(name,rows)=>{const t=rows.map(r=>r.map(x=>'"'+String(x??'').replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+t],{type:'text/csv'}));a.download=name;a.click()};
+async function approve(k){let id;
+  for(let i=0;i<40;i++){id=String(Math.floor(Math.random()*10000)).padStart(4,'0');if(!(await R.child('profileIdIndex/'+id).once('value')).exists())break}
+  await R.child('profileIdIndex/'+id).set(k);await R.child('registrations/'+k).update({profileId:id,connected:true});alert('Profile ID: '+id+'\nGive this number to the parent.')}
+const delReg=k=>confirm('Delete this registration?')&&R.child('registrations/'+k).remove();
+
+/* ---- Send items to parents' inbox (teacher + admin) ---- */
+views.send=async function(){
+  const snap=await R.child('registrations').once('value'),L=[];
+  snap.forEach(c=>{const v=c.val();if(v.profileId)L.push(Object.assign(v,{k:c.key}))});
+  L.sort((a,b)=>grp(a).localeCompare(grp(b),0,{numeric:true})||String(a.parentStudentName).localeCompare(b.parentStudentName));
+  const G=[...new Set(L.map(grp))];
+  const opts=all=>(all?G.map(g=>`<option value="g:${esc(g)}">★ Whole class: ${esc(g)}</option>`).join(''):'')+L.map(v=>`<option value="${esc(v.k)}">${esc(v.parentStudentName)} · ${esc(grp(v))}</option>`).join('');
+  const who=()=>{const v=$('#sst').value;return v.startsWith('g:')?L.filter(x=>grp(x)===v.slice(2)):L.filter(x=>x.k===v)};
+  const ok=n=>{$('#sm').textContent='Sent ✔ ('+n+' student'+(n==1?'':'s')+')'};
+  const today=new Date().toISOString().slice(0,10);
+  const types={att:'Attendance (whole class)',mk:'Mark list',rs:'Results',wr:'Weekly report'};if(isAdmin())types.bl='Bill';
+  app.innerHTML=`<div class="card"><label class="m">What to send</label><select id="sty">${Object.entries(types).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div><div class="card" id="sf"></div><p class="m" id="sm"></p>`;
+  if(!L.length){$('#sf').innerHTML='<p class="m">No students with a Profile ID yet. Approve registrations in Students / Reports first.</p>';return}
+  const draw=async()=>{const t=$('#sty').value;$('#sm').textContent='';const f=$('#sf');
+    if(t==='att'){
+      f.innerHTML=`<label class="m">Class</label><select id="sg">${G.map(g=>`<option>${esc(g)}</option>`).join('')}</select><label class="m">Date</label><input id="sd" type="date" value="${today}"><div id="sl"></div><button class="btn" id="go">Send attendance</button>`;
+      const rl=()=>{$('#sl').innerHTML='<table>'+L.filter(x=>grp(x)===$('#sg').value).map(x=>`<tr><td>${esc(x.parentStudentName)}</td><td><select data-k="${esc(x.k)}"><option>Present</option><option>Absent</option><option>Late</option></select></td></tr>`).join('')+'</table>'};
+      $('#sg').onchange=rl;rl();
+      $('#go').onclick=async()=>{const u={},d=$('#sd').value,g=$('#sg').value;let n=0;
+        document.querySelectorAll('#sl select').forEach(s=>{u['attendance_inbox/'+s.dataset.k+'/'+d]={status:s.value,className:g,timestamp:Date.now()};n++});
+        try{await R.update(u);ok(n)}catch(e){$('#sm').textContent='Failed: '+e.message}};
+    }
+    if(t==='mk'){
+      f.innerHTML=`<label class="m">Student</label><select id="sst">${opts(false)}</select><input id="mt" placeholder="Term (e.g. Semester 1)"><input id="my" placeholder="Year (e.g. 2018)"><input id="mn" placeholder="Title (optional)">`+
+        [...Array(10)].map((_,i)=>`<div style="display:flex;gap:6px"><input id="sn${i}" placeholder="Subject ${i+1}" style="flex:3"><input id="mm${i}" type="number" placeholder="Mark" style="flex:1"><input id="mx${i}" type="number" placeholder="Max" value="100" style="flex:1"></div>`).join('')+'<button class="btn" id="go">Send mark list</button>';
+      $('#go').onclick=async()=>{const s=who()[0];if(!s)return;const o={subject:$('#mn').value||'Mark List',term:$('#mt').value,year:$('#my').value,grade:s.grade||'',marks:{},max:{},subjectNames:{},sentTimestamp:Date.now()};let tot=0,tm=0;
+        for(let i=0;i<10;i++){const n=$('#sn'+i).value.trim(),m=parseFloat($('#mm'+i).value);if(!n||isNaN(m))continue;const x=parseFloat($('#mx'+i).value)||100;o.marks['sub_'+i]=m;o.max['sub_'+i]=x;o.subjectNames['sub_'+i]=n;tot+=m;tm+=x}
+        if(!tm){$('#sm').textContent='Add at least one subject and mark.';return}o.total=tot;o.totalMax=tm;
+        try{await R.child('marklist_inbox/'+s.k).push().set(o);ok(1)}catch(e){$('#sm').textContent='Failed: '+e.message}};
+    }
+    if(t==='rs'){
+      f.innerHTML=`<label class="m">Student</label><select id="sst">${opts(false)}</select>`+[...Array(10)].map((_,i)=>`<div style="display:flex;gap:6px"><input id="rn${i}" placeholder="Subject ${i+1}" style="flex:3"><input id="rv${i}" type="number" placeholder="%" style="flex:1"></div>`).join('')+'<button class="btn" id="go">Publish results</button>';
+      $('#go').onclick=async()=>{const s=who()[0];if(!s)return;const sc={};for(let i=0;i<10;i++){const n=$('#rn'+i).value.trim(),v=parseFloat($('#rv'+i).value);if(n&&!isNaN(v))sc['s'+i]={name:n,score:v}}
+        try{await R.child('academic_performance/'+s.k).set({studentName:s.parentStudentName,grade:s.grade||'',scores:sc,updatedTimestamp:Date.now()});ok(1)}catch(e){$('#sm').textContent='Failed: '+e.message}};
+    }
+    if(t==='wr'){
+      f.innerHTML=`<label class="m">Student</label><select id="sst">${opts(false)}</select><input id="wl" placeholder="Week label (e.g. Week 5)"><input id="wa" type="number" placeholder="Attendance %"><input id="wan" placeholder="Attendance note"><input id="wh" type="number" placeholder="Health %"><input id="whn" placeholder="Health details"><textarea id="ws" rows="2" placeholder="Strengths"></textarea><textarea id="ww" rows="2" placeholder="Needs work"></textarea><button class="btn" id="go">Send report</button>`;
+      $('#go').onclick=async()=>{const s=who()[0];if(!s)return;
+        try{await R.child('weekly_reports/'+s.k).set({studentName:s.parentStudentName,weekLabel:$('#wl').value,attendance:{score:+$('#wa').value||0,note:$('#wan').value},medical:{score:+$('#wh').value||0,details:$('#whn').value},strengths:{text:$('#ws').value},weakSpots:{text:$('#ww').value},timestamp:Date.now()});ok(1)}catch(e){$('#sm').textContent='Failed: '+e.message}};
+    }
+    if(t==='bl'){
+      const pi=(await R.child('payment_info').once('value')).val()||{};
+      f.innerHTML=`<label class="m">Send to</label><select id="sst">${opts(true)}</select><input id="ba" placeholder="Academic year (e.g. 2018)"><input id="bf" type="number" placeholder="Monthly fee (birr)"><input id="be" type="number" placeholder="Extra per month (optional)"><input id="bp" placeholder="Pay-to account" value="${esc(pi.cbeAccount||pi.telebirrAccount||'')}"><input id="bh" placeholder="Admin phone" value="${esc(pi.adminPhone||'')}"><button class="btn" id="go">Send bill</button>`;
+      $('#go').onclick=async()=>{const fee=+$('#bf').value;if(!fee){$('#sm').textContent='Enter the monthly fee.';return}const w=who();if(!w.length)return;
+        const M=['Meskerem','Tikimt','Hidar','Tahsas','Tir','Yekatit','Megabit','Miazia','Ginbot','Sene'],ex=+$('#be').value||0,u={};
+        w.forEach(s=>{const mr={};M.forEach((n,i)=>mr['m'+(i+1)]={monthLabelEn:n,monthlyFee:fee,total:fee+ex});
+          u['bills/'+s.k]={academicYear:$('#ba').value,studentName:s.parentStudentName,grade:s.grade||'',section:s.section||'',adminAccount:$('#bp').value,adminPhone:$('#bh').value,monthRows:mr,sentTimestamp:Date.now()}});
+        try{await R.update(u);ok(w.length)}catch(e){$('#sm').textContent='Failed: '+e.message}};
+    }};
+  $('#sty').onchange=draw;draw();
+};
+
+/* ---- Timetable editor (admin) ---- */
+views.ttedit=function(){
+  const D=['Mon','Tue','Wed','Thu','Fri'];let cur={};
+  app.innerHTML=`<div class="card"><label class="m">Grade</label><select id="eg">${[...Array(12)].map((_,i)=>`<option>${i+1}</option>`).join('')}</select><label class="m">Section</label><select id="es"><option>A</option><option>B</option></select><label class="m">Periods per day</label><input id="ep" type="number" value="7" min="1" max="10"></div><div class="card" id="eb" style="overflow:auto"></div><button class="btn" id="esv">Save timetable</button> <span class="m" id="emsg"></span>`;
+  const cid=()=>(+$('#eg').value)*10+($('#es').value=='A'?1:2);
+  const render=()=>{const P=Math.min(10,Math.max(1,+$('#ep').value||7));let t='<table><tr><th></th>'+D.map(d=>'<th>'+d+'</th>').join('')+'</tr>';
+    for(let p=0;p<P;p++){t+='<tr><td><b>'+(p+1)+'</b></td>'+D.map((_,d)=>{const x=cur[p+'_'+d]||{};return `<td><input id="ts_${p}_${d}" placeholder="Subject" value="${esc(x.subject)}" style="min-width:90px"><input id="tt_${p}_${d}" placeholder="Teacher" value="${esc(x.teacher)}" style="min-width:90px"></td>`}).join('')+'</tr>'}
+    $('#eb').innerHTML=t+'</table>'};
+  const load=async()=>{const v=(await R.child('timetable').once('value')).val()||{};if(v.periods)$('#ep').value=v.periods;
+    cur={};const c=(v.classes&&v.classes[cid()])||{};Object.values(c.cells||{}).forEach(x=>cur[x.p+'_'+x.d]=x);render()};
+  $('#eg').onchange=$('#es').onchange=load;$('#ep').onchange=()=>{const P=+$('#ep').value;render()};load();
+  $('#esv').onclick=async()=>{const P=Math.min(10,Math.max(1,+$('#ep').value||7)),cells={};
+    for(let p=0;p<P;p++)for(let d=0;d<5;d++){const s=$('#ts_'+p+'_'+d).value.trim();if(s)cells[p+'_'+d]={p,d,subject:s,teacher:$('#tt_'+p+'_'+d).value.trim()}}
+    try{await R.child('timetable/classes/'+cid()+'/cells').set(cells);await R.child('timetable/periods').set(P);$('#emsg').textContent='Saved ✔'}catch(e){$('#emsg').textContent='Failed: '+e.message}};
+};
+
+/* ---- Student tools (everyone) ---- */
+views.tools=function(){
+  const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+  app.innerHTML=`<div class="tabs" id="tt2"><button class="btn on" data-t="g">GPA</button><button class="btn" data-t="n">Notes</button><button class="btn" data-t="f">Cards</button><button class="btn" data-t="p">Timer</button></div><div class="card" id="tb2"></div>`;
+  let iv=null;off.push(()=>clearInterval(iv));
+  const T={
+    g(){$('#tb2').innerHTML='<h3>Average calculator</h3><div id="gr"></div><button class="btn s" id="ga">+ subject</button><p id="go2"><b></b></p>';
+      const add=()=>{const d=document.createElement('div');d.style.cssText='display:flex;gap:6px';d.innerHTML='<input placeholder="Subject" style="flex:3"><input type="number" placeholder="Score %" style="flex:1"><input type="number" placeholder="Credit" value="1" style="flex:1">';$('#gr').appendChild(d);d.oninput=calc};
+      const calc=()=>{let s=0,c=0;document.querySelectorAll('#gr div').forEach(d=>{const i=d.querySelectorAll('input'),v=parseFloat(i[1].value),w=parseFloat(i[2].value)||1;if(!isNaN(v)){s+=v*w;c+=w}});
+        $('#go2').innerHTML=c?'Weighted average: <b>'+(s/c).toFixed(1)+'%</b>':''};
+      $('#ga').onclick=add;for(let i=0;i<5;i++)add()},
+    n(){$('#tb2').innerHTML='<h3>My notes</h3><textarea id="nt" rows="12" placeholder="Saved on this phone only"></textarea>';$('#nt').value=ls.get('notes','');$('#nt').oninput=()=>ls.set('notes',$('#nt').value)},
+    f(){let cards=ls.get('cards',[]),i=0,flip=false;
+      const draw=()=>{$('#tb2').innerHTML=`<h3>Flashcards (${cards.length})</h3><input id="fq" placeholder="Question"><input id="fa" placeholder="Answer"><button class="btn" id="fadd">Add card</button>`+
+        (cards.length?`<div class="card" id="fc" style="margin-top:12px;text-align:center;font-size:18px;cursor:pointer">${esc(flip?cards[i].a:cards[i].q)}<div class="m">tap to flip</div></div><button class="btn s" id="fn">Next ▶</button><button class="btn s" id="fd">Delete</button>`:'');
+        $('#fadd').onclick=()=>{const q=$('#fq').value.trim(),a=$('#fa').value.trim();if(!q||!a)return;cards.push({q,a});ls.set('cards',cards);i=cards.length-1;flip=false;draw()};
+        if(cards.length){$('#fc').onclick=()=>{flip=!flip;draw()};$('#fn').onclick=()=>{i=(i+1)%cards.length;flip=false;draw()};$('#fd').onclick=()=>{cards.splice(i,1);ls.set('cards',cards);i=0;flip=false;draw()}}};draw()},
+    p(){let s=25*60;$('#tb2').innerHTML='<h3>Study timer</h3><div id="tm" style="font-size:48px;text-align:center">25:00</div><div style="text-align:center"><button class="btn" id="ts1">Start</button> <button class="btn s" id="ts2">Reset</button></div><div class="tabs" style="margin-top:10px"><button class="btn" data-m="25">25 min</button><button class="btn" data-m="45">45 min</button><button class="btn" data-m="5">5 min break</button></div>';
+      const show=()=>$('#tm').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+      $('#ts1').onclick=()=>{clearInterval(iv);iv=setInterval(()=>{s--;show();if(s<=0){clearInterval(iv);navigator.vibrate&&navigator.vibrate([300,100,300]);alert('Time is up!')}},1000)};
+      $('#ts2').onclick=()=>{clearInterval(iv);s=25*60;show()};
+      document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{clearInterval(iv);s=+b.dataset.m*60;show()})}};
+  document.querySelectorAll('#tt2 button').forEach(b=>b.onclick=()=>{clearInterval(iv);document.querySelectorAll('#tt2 button').forEach(x=>x.classList.toggle('on',x===b));T[b.dataset.t]()});
+  T.g();
+};
+
+/* ===== Branding: editable school name + accent colour ===== */
+Object.assign(lbl,{settings:'School Settings'});
+const ico={feed:'🏠',reg:'📝',fee:'💳',info:'🏦',stars:'⭐',results:'📊',marks:'🧾',bill:'💰',report:'📅',lib:'📚',tt:'🗓️',att:'✅',students:'👥',pay:'📈',send:'📤',tools:'🧰',ttedit:'✏️',settings:'⚙️'};
+function applyBrand(n,a){
+  if(n){try{localStorage.sname=n}catch(e){}document.title=n;['#sn','#who','#lt'].forEach(s=>{const e=$(s);if(e)e.textContent=n})}
+  if(a&&/^#[0-9a-f]{6}$/i.test(a)){try{localStorage.saccent=a}catch(e){}const r=document.documentElement.style;
+    r.setProperty('--g',a);r.setProperty('--g2','color-mix(in srgb,'+a+' 55%,white)');const m=document.querySelector('meta[name=theme-color]');if(m)m.content=a}}
+async function loadBrand(){
+  const g=p=>R.child('settings/'+p).once('value').then(s=>s.val()).catch(()=>null);
+  const [n,a]=await Promise.all([g('schoolName'),g('accent')]);applyBrand(n,a)}
+try{applyBrand(localStorage.sname,localStorage.saccent)}catch(e){}
+const _login=login;login=function(){_login();applyBrand(localStorage.sname);loadBrand()};
+const _start=start;start=function(){_start();applyBrand(localStorage.sname);loadBrand()};
+views.settings=function(){
+  app.innerHTML=`<div class="card"><h3>⚙️ School Settings</h3><label class="m">School name (shown in the app, the menu and the login page)</label><input id="stn" maxlength="40" placeholder="e.g. Newlife Academy"><label class="m">Theme colour</label><input id="sta" type="color" style="height:48px;padding:4px"><div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px" id="sw"></div><button class="btn" id="stv">Save</button> <span class="m" id="stm"></span></div>`;
+  const cols=['#059669','#0ea5e9','#6200ee','#f59e0b','#ef4444','#ec4899','#14b8a6','#334155'];
+  $('#sw').innerHTML=cols.map(c=>`<button class="btn" style="background:${c};width:38px;height:38px;padding:0;border-radius:50%" data-c="${c}"></button>`).join('');
+  $('#stn').value=localStorage.sname||$('#sn').textContent||'';$('#sta').value=localStorage.saccent||'#059669';
+  document.querySelectorAll('#sw button').forEach(b=>b.onclick=()=>{$('#sta').value=b.dataset.c;applyBrand(null,b.dataset.c)});
+  $('#sta').oninput=()=>applyBrand(null,$('#sta').value);
+  $('#stv').onclick=async()=>{const n=$('#stn').value.trim();if(!n){$('#stm').textContent='Enter a name';return}
+    try{await R.child('settings').update({schoolName:n,accent:$('#sta').value});applyBrand(n,$('#sta').value);$('#stm').textContent='Saved ✔'}catch(e){$('#stm').textContent='Failed: '+e.message}}
+};
+
+/* ===== Remote Controller: every browser/phone/PC that opens the web app is tracked ===== */
+const APPKEY='com_denkus_school_web',AC=db.ref('app_control/'+APPKEY);
+let devId;try{devId=localStorage.did||(localStorage.did=((crypto.randomUUID&&crypto.randomUUID())||(Date.now()+''+Math.random())).replace(/[^a-z0-9]/gi,''))}catch(e){devId='tmp'+Date.now()}
+let curPage='',gs={en:true,msg:'',ap:undefined,auto:false,master:false},tracking=false;
+function gateShow(i,t,m){let g=$('#gate');if(!g){g=document.createElement('div');g.id='gate';g.style.cssText='position:fixed;inset:0;z-index:99;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:var(--bg)';document.body.appendChild(g)}
+  g.innerHTML=`<div class="card hero" style="margin:0;max-width:420px"><div style="font-size:60px">${i}</div><h2>${esc(t)}</h2><p class="m">${esc(m)}</p></div>`;g.hidden=false}
+function gateHide(){const g=$('#gate');if(g)g.hidden=true}
+function evalGate(){
+  if(gs.en===false){try{localStorage.gate='off'}catch(e){}return gateShow('⛔','App switched off',gs.msg||'This app has been disabled by the administrator.')}
+  if(gs.ap===false){try{localStorage.gate='off'}catch(e){}return gateShow('🚫','Device blocked',gs.msg||'This device has been blocked by the administrator.')}
+  if(gs.ap==null){
+    if(gs.auto||gs.master){AC.child('devices/'+devId).update({approved:true,approvedBy:'auto',approvedAt:Date.now()}).catch(()=>{});return}
+    return gateShow('⏳','Waiting for approval','The administrator must approve this device. Keep this page open.')}
+  try{localStorage.gate='ok'}catch(e){}gateHide()}
+function track(x){
+  if(!auth.currentUser)return;const ua=navigator.userAgent;
+  const os=/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':/Windows/.test(ua)?'Windows':/Mac/.test(ua)?'macOS':/Linux/.test(ua)?'Linux':'';
+  const br=/Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Firefox/.test(ua)?'Firefox':/Chrome/.test(ua)?'Chrome':/Safari/.test(ua)?'Safari':'Browser';
+  AC.child('devices/'+devId).update(Object.assign({platform:'web',model:br+' on '+(os||'device'),manufacturer:'Web',os,browser:br,screen:screen.width+'x'+screen.height,
+    appVersion:'web 1.0',lastSeen:Date.now(),lastSeenText:new Date().toLocaleString(),user:me.role?(me.name||me.role):'',role:me.role||'',page:curPage},x||{})).catch(()=>{})}
+auth.onAuthStateChanged(u=>{
+  if(!u){auth.signInAnonymously().catch(()=>{});return}
+  track();if(tracking)return;tracking=true;
+  AC.child('config').on('value',s=>{const c=s.val()||{};gs.en=c.enabled!==false;gs.msg=c.message||'';gs.auto=c.autoApprove===true;evalGate()},()=>{});
+  AC.child('devices/'+devId+'/approved').on('value',s=>{gs.ap=s.val();evalGate()},()=>{});
+  db.ref('app_control/_settings/autoApproveAll').on('value',s=>{gs.master=s.val()===true;evalGate()},()=>{});
+  setInterval(()=>track(),60000);addEventListener('visibilitychange',()=>{if(!document.hidden)track()});
+});
+try{if(localStorage.gate==='off')gateShow('⏳','Checking…','Contacting the administrator…')}catch(e){}
+const _go=go;go=function(v){curPage=lbl[v]||v;_go(v);track({page:curPage})};
+const _s3=start;start=function(){_s3();track()};
+
+/* ===== v3: more app features ===== */
+Object.assign(lbl,{profile:'My Profile',exams:'Exams',marker:'Mark List Maker',cert:'Certificate Maker',notif:'Notifications',manual:'Manual Entry',finance:'Finance Center'});
+Object.assign(ico,{profile:'👤',exams:'📆',marker:'🧮',cert:'🏅',notif:'🔔',manual:'✍️',finance:'💹'});
+const store={get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const MONTHS=['Meskerem','Tikimt','Hidar','Tahsas','Tir','Yekatit','Megabit','Miazia','Ginbot','Sene'];
+const nm=s=>String(s||'').trim().toLowerCase();
+async function loadStudents(){const s=await R.child('registrations').once('value'),L=[];s.forEach(c=>L.push(Object.assign(c.val(),{k:c.key})));
+  L.sort((a,b)=>grp(a).localeCompare(grp(b),0,{numeric:true})||String(a.parentStudentName).localeCompare(String(b.parentStudentName)));return L}
+async function newPid(){let id;for(let i=0;i<60;i++){id=String(Math.floor(Math.random()*10000)).padStart(4,'0');if(!(await R.child('profileIdIndex/'+id).once('value')).exists())break}return id}
+
+/* ---- Mark List Maker (class table, local drafts, send to parents) ---- */
+views.marker=async function(){
+  const L=await loadStudents(),G=[...new Set(L.map(grp))];
+  if(!L.length){app.innerHTML='<div class="card"><p class="m">No students registered yet.</p></div>';return}
+  let st={g:G[0],title:'Mark List',term:'',year:'',names:Array(10).fill(''),max:100,marks:{}};
+  const key=()=>'ml:'+st.g+':'+st.term+':'+st.year;
+  const last=store.get('ml_last',null),d0=last&&store.get(last,null);if(d0&&G.includes(d0.g))st=d0;
+  let dopen=!st.names.some(Boolean);
+  const calc=()=>{const S=L.filter(x=>grp(x)===st.g),cols=st.names.map((n,i)=>n.trim()?i:-1).filter(i=>i>=0),mx=+st.max||100;
+    S.forEach(x=>{let t=0,c=0;cols.forEach(i=>{const v=parseFloat((st.marks[x.k]||{})[i]);if(!isNaN(v)){t+=v;c++}});
+      const a=$('#tt_'+x.k),b=$('#av_'+x.k);if(a)a.textContent=c?t:'';if(b)b.textContent=c?(t/(c*mx)*100).toFixed(1)+'%':''})};
+  const render=()=>{const S=L.filter(x=>grp(x)===st.g),cols=st.names.map((n,i)=>[n.trim(),i]).filter(c=>c[0]);
+    app.innerHTML=`<div class="card"><label class="m">Class</label><select id="mg">${G.map(g=>`<option ${g===st.g?'selected':''}>${esc(g)}</option>`).join('')}</select>
+      <input id="mt" placeholder="Title" value="${esc(st.title)}"><div style="display:flex;gap:6px"><input id="mte" placeholder="Term" value="${esc(st.term)}"><input id="my" placeholder="Year" value="${esc(st.year)}"><input id="mx" type="number" placeholder="Max" value="${esc(st.max)}"></div>
+      <details id="dt" ${dopen?'open':''}><summary class="m">Subjects (up to 10)</summary>${st.names.map((n,i)=>`<input data-sn="${i}" placeholder="Subject ${i+1}" value="${esc(n)}">`).join('')}</details></div>
+      <div class="card" style="overflow:auto"><table><tr><th>Student</th>${cols.map(c=>`<th>${esc(c[0])}</th>`).join('')}<th>Total</th><th>Avg</th></tr>${S.map(x=>`<tr><td style="white-space:nowrap">${esc(x.parentStudentName)}</td>${cols.map(c=>`<td><input class="mi" type="number" data-k="${esc(x.k)}" data-i="${c[1]}" value="${esc((st.marks[x.k]||{})[c[1]]??'')}"></td>`).join('')}<td id="tt_${esc(x.k)}"></td><td id="av_${esc(x.k)}"></td></tr>`).join('')}</table></div>
+      <div class="card"><button class="btn" id="msv">💾 Save draft</button> <button class="btn s" id="mld">Load draft</button> <button class="btn s" id="mex">Export CSV</button><br><br><button class="btn" id="msd">📤 Send to parents</button> <span class="m" id="mm"></span></div>`;
+    $('#dt').ontoggle=()=>{dopen=$('#dt').open};
+    $('#mg').onchange=()=>{st.g=$('#mg').value;st.marks={};render()};
+    $('#mt').onchange=()=>st.title=$('#mt').value;$('#mte').onchange=()=>st.term=$('#mte').value;$('#my').onchange=()=>st.year=$('#my').value;$('#mx').onchange=()=>{st.max=$('#mx').value;calc()};
+    document.querySelectorAll('[data-sn]').forEach(i=>i.onchange=()=>{st.names[+i.dataset.sn]=i.value;render()});
+    document.querySelectorAll('.mi').forEach(i=>i.oninput=()=>{(st.marks[i.dataset.k]=st.marks[i.dataset.k]||{})[i.dataset.i]=i.value;i.style.borderColor=(+i.value>(+st.max||100))?'#ef4444':'';calc()});
+    calc();
+    $('#msv').onclick=()=>{store.set(key(),st);store.set('ml_last',key());$('#mm').textContent='Saved on this phone ✔'};
+    $('#mld').onclick=()=>{const d=store.get(key(),null);if(!d){$('#mm').textContent='No draft for this class/term/year';return}st=d;render()};
+    $('#mex').onclick=()=>{const cs=cols.map(c=>c[0]);csv('marklist.csv',[['Student'].concat(cs,['Total'])].concat(S.map(x=>[x.parentStudentName].concat(cols.map(c=>(st.marks[x.k]||{})[c[1]]??''),[$('#tt_'+x.k).textContent]))))};
+    $('#msd').onclick=async()=>{const mx=+st.max||100,u={};let n=0,skip=0;
+      L.filter(x=>grp(x)===st.g).forEach(x=>{const o={subject:st.title||'Mark List',term:st.term,year:st.year,grade:x.grade||'',marks:{},max:{},subjectNames:{},sentTimestamp:Date.now()};let t=0,tm=0;
+        st.names.forEach((nme,i)=>{const v=parseFloat((st.marks[x.k]||{})[i]);if(nme.trim()&&!isNaN(v)){o.marks['sub_'+i]=v;o.max['sub_'+i]=mx;o.subjectNames['sub_'+i]=nme.trim();t+=v;tm+=mx}});
+        if(!tm)return;if(!x.profileId){skip++;return}o.total=t;o.totalMax=tm;u['marklist_inbox/'+x.k+'/'+R.child('marklist_inbox/'+x.k).push().key]=o;n++});
+      if(!n){$('#mm').textContent='Nothing to send (need marks and a Profile ID)';return}
+      if(!confirm('Send to '+n+' parent(s)?'))return;
+      try{await R.update(u);store.set(key(),st);store.set('ml_last',key());$('#mm').textContent='Sent ✔ '+n+(skip?' · '+skip+' without Profile ID skipped':'')}catch(e){$('#mm').textContent='Failed: '+e.message}};
+  };render();
+};
+
+/* ---- Certificate Maker (print / save as PDF) ---- */
+views.cert=async function(){
+  const L=await loadStudents();
+  if(!L.length){app.innerHTML='<div class="card"><p class="m">No students registered yet.</p></div>';return}
+  app.innerHTML=`<div class="card"><label class="m">Student</label><select id="cs">${L.map(x=>`<option value="${esc(x.k)}">${esc(x.parentStudentName)} · ${esc(grp(x))}</option>`).join('')}</select><label class="m">Type</label><select id="ct"><option>Certificate of Merit</option><option>Certificate of Excellence</option><option>Certificate of Completion</option><option>Certificate of Participation</option></select><textarea id="cr" rows="2" placeholder="For… (e.g. outstanding results in Semester 1)"></textarea><input id="cd" type="date" value="${new Date().toISOString().slice(0,10)}"><input id="cg" placeholder="Signed by (e.g. Principal)"><button class="btn" id="cp">🖨 Print / Save as PDF</button></div><div id="certp"></div>`;
+  const draw=()=>{const s=L.find(x=>x.k===$('#cs').value)||{};
+    $('#certp').innerHTML=`<div class="cert"><div class="cs1">${esc(localStorage.sname||'School')}</div><div class="cs2">${esc($('#ct').value)}</div><p>This is proudly presented to</p><div class="cs3">${esc(s.parentStudentName||'')}</div><p>${esc($('#cr').value||'in recognition of outstanding achievement')}</p><div class="cs4"><span>${esc($('#cd').value)}<br><small>Date</small></span><span>${esc($('#cg').value)}<br><small>Signature</small></span></div></div>`};
+  ['cs','ct','cr','cd','cg'].forEach(i=>$('#'+i).oninput=draw);draw();$('#cp').onclick=()=>print();
+};
+
+/* ---- Exam calendar ---- */
+views.exams=function(){
+  app.innerHTML=(isAdmin()?`<div class="card"><h3>Add exam</h3><input id="xd" type="date"><input id="xs" placeholder="Subject"><input id="xg" placeholder="Grade (e.g. 8, or All)"><input id="xt" placeholder="Time / room (optional)"><button class="btn" id="xa">Add</button></div>`:'')+'<div id="xl"></div>';
+  const pg=me.role==='user'&&me.key?R.child('registrations/'+me.key+'/grade').once('value').then(s=>String(s.val()||'')).catch(()=>''):Promise.resolve('');
+  if(isAdmin())$('#xa').onclick=async()=>{if(!$('#xd').value||!$('#xs').value)return;const r=R.child('exams').push();
+    await r.set({id:r.key,date:$('#xd').value,subject:$('#xs').value,grade:$('#xg').value||'All',note:$('#xt').value});$('#xs').value=$('#xt').value=''};
+  listen(R.child('exams'),async s=>{const g=await pg,a=[];s.forEach(c=>a.push(Object.assign(c.val(),{k:c.key})));
+    const t0=new Date(new Date().toISOString().slice(0,10)),f=a.filter(x=>!g||!x.grade||/all/i.test(x.grade)||String(x.grade)===g).sort((x,y)=>x.date.localeCompare(y.date));
+    $('#xl').innerHTML=f.map(x=>{const d=Math.round((new Date(x.date)-t0)/864e5);const tag=d<0?'Done':d===0?'TODAY':'in '+d+' day'+(d==1?'':'s');
+      return `<div class="card" style="${d<0?'opacity:.55':''}"><b>${esc(x.subject)}</b> <span class="m">· Grade ${esc(x.grade)}</span><div>${esc(x.date)} ${esc(x.note)}</div><span class="chip">${tag}</span>${isAdmin()?`<button class="btn s" onclick="R.child('exams/${x.k}').remove()">Delete</button>`:''}</div>`}).join('')||'<p class="m">No exams scheduled.</p>'})
+};
+
+/* ---- Profile (parent) ---- */
+views.profile=function(){
+  app.innerHTML='<div class="card" id="pr">Loading…</div>';
+  listen(R.child('registrations/'+me.key),s=>{const v=s.val()||{},rows=[['Student',v.parentStudentName],['Parent',v.parentFullName],['Phone',v.parentPhone],['Class',grp(v)],['Sex',v.sex],['City',v.city],['Woreda',v.werda],['Kebele',v.kebele],['Profile ID',v.profileId||localStorage.pid]];
+    $('#pr').innerHTML=`<div style="text-align:center"><div class="avatar">${esc(String(v.parentStudentName||'?').charAt(0))}</div><h3>${esc(v.parentStudentName)}</h3></div><table>`+rows.filter(r=>r[1]).map(r=>`<tr><td class="m">${r[0]}</td><td><b>${esc(r[1])}</b></td></tr>`).join('')+'</table>'})
+};
+
+/* ---- Notifications (admin) ---- */
+views.notif=function(){
+  app.innerHTML='<div class="card"><button class="btn s" id="nc">Clear all</button></div><div id="nl"></div>';
+  $('#nc').onclick=()=>confirm('Clear all notifications?')&&R.child('admin_notifications').remove();
+  listen(R.child('admin_notifications'),s=>{const a=[];s.forEach(c=>{a.unshift(Object.assign({k:c.key},c.val()))});
+    $('#nl').innerHTML=a.map(x=>`<div class="card"><b>${x.type==='payment'?'💳 New payment':'📝 New registration'}</b> · ${esc(x.studentName)}<div class="m">${fmt(x.timestamp)}</div><button class="btn s" onclick="R.child('admin_notifications/${x.k}').remove()">Dismiss</button><button class="btn s" onclick="go('${x.type==='payment'?'finance':'students'}')">Open</button></div>`).join('')||'<p class="m">No notifications.</p>'})
+};
+
+/* ---- Manual entry for parents without the app (admin) ---- */
+views.manual=async function(){
+  const L=await loadStudents().then(a=>a.filter(x=>x.profileId));
+  app.innerHTML='<div class="tabs"><button class="btn on" id="m1">Register</button><button class="btn" id="m2">Payment</button></div><div class="card" id="mf"></div>';
+  const A=[['parentStudentName','Student full name'],['parentFullName','Parent full name'],['parentPhone','Parent phone'],['city','City'],['werda','Woreda'],['kebele','Kebele'],['zone','Zone'],['houseNumber','House number'],['grade','Grade (1-12)'],['section','Section'],['sex','Sex',['Male','Female']],['paymentMethod','Payment method',['CBE','BOA','Telebirr','Cash']]];
+  const tab=n=>{$('#m1').classList.toggle('on',n==1);$('#m2').classList.toggle('on',n==2);
+    if(n==1){$('#mf').innerHTML='<h3>Register a student</h3>'+F(A)+'<button class="btn" id="ms">Register &amp; give Profile ID</button><p class="m" id="mr"></p>';
+      $('#ms').onclick=async()=>{const v=V(A);if(!v.parentStudentName||!v.parentPhone||!v.grade){$('#mr').textContent='Fill name, phone and grade';return}
+        const id=await newPid(),r=R.child('registrations').push();await r.set(Object.assign(v,{id:r.key,schoolId:'school_1',timestamp:Date.now(),connected:true,profileId:id,manual:true}));
+        await R.child('profileIdIndex/'+id).set(r.key);$('#mr').innerHTML='✔ Registered. Profile ID: <b style="font-size:22px">'+id+'</b>'}}
+    else{$('#mf').innerHTML=`<h3>Record a payment</h3><label class="m">Student</label><select id="ps">${L.map(x=>`<option value="${esc(x.k)}">${esc(x.parentStudentName)} · ${esc(grp(x))}</option>`).join('')}</select><label class="m">Month</label><select id="pm">${MONTHS.map(m=>`<option>${m}</option>`).join('')}</select><input id="pa" type="number" placeholder="Amount (birr)"><label class="m">Method</label><select id="pt"><option>Cash</option><option>CBE</option><option>BOA</option><option>Telebirr</option></select><button class="btn" id="pv">Save payment</button><p class="m" id="pr2"></p>`;
+      $('#pv').onclick=async()=>{const s=L.find(x=>x.k===$('#ps').value),a=+$('#pa').value;if(!s||!a){$('#pr2').textContent='Choose a student and enter the amount';return}
+        const r=R.child('monthly_payments').push();await r.set({id:r.key,schoolId:'school_1',studentName:s.parentStudentName,parentName:s.parentFullName||'',grade:s.grade||'',section:s.section||'',profileId:s.profileId,month:$('#pm').value,amount:a,method:$('#pt').value,timestamp:Date.now(),manual:true});
+        $('#pr2').textContent='Saved ✔';$('#pa').value=''}}};
+  $('#m1').onclick=()=>tab(1);$('#m2').onclick=()=>tab(2);tab(1);
+};
+
+/* ---- Finance Center (admin) ---- */
+views.finance=async function(){
+  app.innerHTML='<div class="card"><label class="m">Month</label><select id="fm"><option value="">All months</option>'+MONTHS.map(m=>`<option>${m}</option>`).join('')+'</select></div><div id="fr"></div>';
+  const L=(await loadStudents()).filter(x=>x.profileId);
+  listen(R.child('monthly_payments'),s=>{const P=[];s.forEach(c=>P.push(c.val()));
+    const draw=()=>{const m=nm($('#fm').value),pm=P.filter(p=>!m||nm(p.month).includes(m));
+      const paidOf=x=>pm.filter(p=>(p.profileId&&p.profileId===x.profileId)||nm(p.studentName)===nm(x.parentStudentName));
+      const paid=L.filter(x=>paidOf(x).length),unpaid=L.filter(x=>!paidOf(x).length),sum=pm.reduce((t,p)=>t+(+p.amount||0),0),pc=L.length?Math.round(paid.length/L.length*100):0;
+      const by={};L.forEach(x=>{const g=by[grp(x)]=by[grp(x)]||{n:0,p:0,a:0};g.n++;const q=paidOf(x);if(q.length){g.p++;g.a+=q.reduce((t,p)=>t+(+p.amount||0),0)}});
+      $('#fr').innerHTML=`<div class="card" style="display:flex;gap:16px;align-items:center"><svg viewBox="0 0 36 36" width="120"><circle cx="18" cy="18" r="15.9" pathLength="100" fill="none" stroke="var(--l)" stroke-width="3.5"/><circle cx="18" cy="18" r="15.9" pathLength="100" fill="none" stroke="var(--g)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="${pc} 100" transform="rotate(-90 18 18)"/><text x="18" y="20.5" text-anchor="middle" font-size="8" font-weight="700" fill="var(--t)">${pc}%</text></svg>
+        <div class="stat"><b>${sum.toLocaleString()}</b>birr collected<div class="m">${paid.length} paid · ${unpaid.length} unpaid</div></div></div>
+        <div class="card"><h4>By class</h4><table><tr><th>Class</th><th>Paid</th><th>Birr</th></tr>${srt(by).map(k=>`<tr><td>${esc(k)}</td><td>${by[k].p}/${by[k].n}</td><td>${by[k].a.toLocaleString()}</td></tr>`).join('')}</table></div>
+        <div class="card"><h4>Not paid (${unpaid.length})</h4><button class="btn s" id="fx">Export CSV</button><table>${unpaid.map(x=>`<tr><td>${esc(x.parentStudentName)}<div class="m">${esc(grp(x))}</div></td><td>${x.parentPhone?`<a class="btn s" href="tel:${esc(x.parentPhone)}">📞 ${esc(x.parentPhone)}</a>`:''}</td></tr>`).join('')||'<tr><td class="m">Everyone has paid 🎉</td></tr>'}</table></div>`;
+      $('#fx').onclick=()=>csv('unpaid.csv',[['Student','Class','Parent','Phone']].concat(unpaid.map(x=>[x.parentStudentName,grp(x),x.parentFullName,x.parentPhone])))};
+    $('#fm').onchange=draw;draw()})
+};
+
+/* ---- Student Tools v2: GPA, notes, flashcards (auto-make), timer, offline AI ---- */
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const sents=t=>String(t).replace(/([.!?])\s+/g,'$1|').split(/[|\n]+/).map(s=>s.trim()).filter(s=>s.length>=25);
+function mkCards(t,n){const out=[];for(const s of sents(t)){if(out.length>=n)break;
+  const m=s.match(/^(.{3,60}?)\s+(is|are|was|were|means|refers to|consists of|contains|causes)\s+(.{8,})$/i);
+  if(m){const v=m[2].toLowerCase(),sub=m[1].replace(/^(the|a|an)\s+/i,'');out.push({q:v==='means'?`What does ${sub} mean?`:/^(is|are|was|were)$/.test(v)?`What ${v} ${sub}?`:`What ${v==='refers to'?'does '+sub+' refer to':v==='causes'?'does '+sub+' cause':'does '+sub+' consist of'}?`,a:s});continue}
+  const w=(s.match(/[A-Za-z]{6,}/g)||[]).sort((a,b)=>b.length-a.length)[0];if(w)out.push({q:s.replace(w,'_____'),a:w})}return out}
+const STOP=new Set('the a an and or of to in on for with is are was were be this that it as at by from which have has had not but can will their there they them also into than then these those such more most other some any each'.split(' '));
+function summarize(t){const S=sents(t);if(S.length<=3)return S.join(' ');const f={};String(t).toLowerCase().match(/[a-z]{3,}/g).forEach(w=>{if(!STOP.has(w))f[w]=(f[w]||0)+1});
+  const sc=S.map((s,i)=>[i,(s.toLowerCase().match(/[a-z]{3,}/g)||[]).reduce((a,w)=>a+(f[w]||0),0)/Math.sqrt(s.length)]).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]).sort((a,b)=>a-b);return sc.map(i=>S[i]).join(' ')}
+function calcQ(l){let m;
+  if(m=l.match(/(\d+(?:\.\d+)?)\s*%\s*of\s*(\d+(?:\.\d+)?)/))return `${m[1]}% of ${m[2]} = ${+(m[1]*m[2]/100).toFixed(4)}`;
+  if(m=l.match(/(average|mean|sum|total)\s*(?:of)?\s*([\d.,\s]+)/)){const n=(m[2].match(/\d+(?:\.\d+)?/g)||[]).map(Number);if(n.length){const s=n.reduce((a,b)=>a+b,0);return /sum|total/.test(m[1])?`Sum = ${s}`:`Average = ${+(s/n.length).toFixed(2)} (${n.length} numbers, total ${s})`}}
+  if(m=l.match(/(\d+(?:\.\d+)?)\s*(km|mi|kg|lb|c|f|m|ft|cm|in)\s+(?:to|in)\s+(km|mi|kg|lb|c|f|m|ft|cm|in)\b/)){const C={km_mi:v=>v*.621371,mi_km:v=>v*1.609344,kg_lb:v=>v*2.20462,lb_kg:v=>v/2.20462,c_f:v=>v*9/5+32,f_c:v=>(v-32)*5/9,m_ft:v=>v*3.28084,ft_m:v=>v/3.28084,cm_in:v=>v/2.54,in_cm:v=>v*2.54},f=C[m[2]+'_'+m[3]];if(f)return `${m[1]} ${m[2]} = ${+f(+m[1]).toFixed(3)} ${m[3]}`}
+  let e=l.replace(/what is|calculate|solve|=|\?/g,'').replace(/×|x(?=\s*\d)/g,'*').replace(/÷/g,'/').replace(/\^/g,'**').replace(/sqrt\(/g,'Math.sqrt(').trim();
+  if(e&&/^[0-9+\-*/().\s]*(Math\.sqrt\([0-9+\-*/().\s]*\)[0-9+\-*/().\s]*)*$/.test(e)&&/\d/.test(e)){try{const v=Function('"use strict";return ('+e+')')();if(typeof v==='number'&&isFinite(v))return `${e} = ${+v.toFixed(6)}`}catch(x){}}return null}
+function plan(t){const dm=t.match(/(\d+)\s*days?/i),days=Math.min(30,Math.max(1,dm?+dm[1]:7)),subj=t.replace(/(in|for|within)?\s*\d+\s*days?.*$/i,'').replace(/^(study\s*)?(plan|schedule)\s*[:\-]?/i,'').split(/,|\band\b/i).map(s=>s.trim()).filter(Boolean);
+  if(!subj.length)return null;const o=[];for(let d=1;d<=days;d++){if(d===days&&days>2){o.push(`Day ${d}: Full revision of ${subj.join(', ')} + rest early 😴`);continue}
+    const a=subj[(d-1)%subj.length],b=subj.length>1?subj[d%subj.length]:null;o.push(`Day ${d}: ${cap(a)} (2×25 min)${b?' + '+cap(b)+' (1×25 min)':''} · 10 min recap`)}return o.join('\n')}
+const TIPS=['Study in 25-minute blocks with 5-minute breaks.','Teach the topic out loud to an imaginary student — gaps show up fast.','Do past exam questions: it is the best practice there is.','Sleep before the exam. A rested brain remembers more than a tired one.','Start with the hardest subject while your mind is fresh.','Turn your notes into questions, then answer without looking.'];
+function aiReply(q){const t=q.trim(),l=t.toLowerCase();let m;
+  if(/^(hi|hello|hey|selam|salam|good (morning|afternoon|evening))\b/.test(l))return 'Hello! 👋 I can calculate, convert units, make flashcards, summarize notes, quiz you and plan your study. Tap an example below.';
+  if(/^(thanks|thank you|thx)/.test(l))return 'You are welcome! Good luck with your studies 🌟';
+  if(m=t.match(/^(?:flash\s?cards?|cards)\s*[:\-]\s*([\s\S]+)/i)){const c=mkCards(m[1],20);if(!c.length)return 'Paste a few full sentences and I will turn them into cards.';const all=store.get('cards',[]).concat(c);store.set('cards',all);return `✅ Made ${c.length} flashcard(s) and saved them in the Cards tab.\n\n`+c.slice(0,3).map(x=>'Q: '+x.q+'\nA: '+x.a).join('\n\n')}
+  if(m=t.match(/^summari[sz]e\s*[:\-]\s*([\s\S]+)/i))return summarize(m[1])||'Paste a longer text to summarize.';
+  if(m=t.match(/^quiz\s*[:\-]\s*([\s\S]+)/i)){const c=mkCards(m[1],5).filter(x=>x.q.includes('_____')||x.q.startsWith('What'));if(!c.length)return 'Paste a few full sentences to be quizzed on.';return c.map((x,i)=>`${i+1}. ${x.q}`).join('\n')+'\n\n(Answers: '+c.map((x,i)=>`${i+1}) ${x.a.length>60?x.a.slice(0,60)+'…':x.a}`).join(' · ')+')'}
+  if(/^(study\s*)?(plan|schedule)\b/.test(l))return plan(t)||'Try: plan: math, physics, english in 5 days';
+  if(/tip|motivat|advice|stress|bored/.test(l))return '💡 '+TIPS[Math.floor(Math.random()*TIPS.length)];
+  const c=calcQ(l);if(c)return '🧮 '+c;
+  return 'I work offline. Try:\n• 20% of 350 · average of 80, 90, 70 · 5 km to mi · (12+8)*3\n• flashcards: <your notes>\n• summarize: <text>\n• quiz: <text>\n• plan: math, physics in 5 days'}
+views.tools=function(){
+  app.innerHTML=`<div class="tabs" id="tt2"><button class="btn on" data-t="a">AI</button><button class="btn" data-t="f">Cards</button><button class="btn" data-t="g">GPA</button><button class="btn" data-t="n">Notes</button><button class="btn" data-t="p">Timer</button></div><div class="card" id="tb2"></div>`;
+  let iv=null;off.push(()=>clearInterval(iv));let log=[['b','Hi! I am your offline study assistant 🤖 Ask me a calculation or give me notes.']];
+  const T={
+    a(){$('#tb2').innerHTML=`<div id="chat" style="max-height:48vh;overflow:auto"></div><div class="chips">${['20% of 350','average of 80, 90, 70','5 km to mi','plan: math, physics in 5 days','flashcards: ','summarize: ','quiz: '].map(x=>`<button class="chip" data-x="${esc(x)}">${esc(x.trim())}</button>`).join('')}</div><textarea id="aq" rows="2" placeholder="Type here…"></textarea><button class="btn" id="as">Send</button>`;
+      const show=()=>{$('#chat').innerHTML=log.map(x=>`<div class="bub ${x[0]}">${esc(x[1]).replace(/\n/g,'<br>')}</div>`).join('');$('#chat').scrollTop=1e9};
+      const send=()=>{const v=$('#aq').value.trim();if(!v)return;log.push(['u',v],['b',aiReply(v)]);$('#aq').value='';show()};
+      $('#as').onclick=send;$('#aq').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
+      document.querySelectorAll('.chips .chip').forEach(c=>c.onclick=()=>{$('#aq').value=c.dataset.x;$('#aq').focus()});show()},
+    f(){let cards=store.get('cards',[]),i=0,flip=false,op=false;
+      const draw=()=>{$('#tb2').innerHTML=`<h3>Flashcards (${cards.length})</h3><details ${op?'open':''} id="fd0"><summary class="m">➕ Make cards</summary><input id="fq" placeholder="Question"><input id="fa" placeholder="Answer"><button class="btn" id="fadd">Add card</button><hr style="border:0;border-top:1px solid var(--l)"><textarea id="ft" rows="5" placeholder="Paste your notes — cards are made automatically"></textarea><input type="file" id="ffl" accept=".txt,.md,text/plain"><input id="fn2" type="number" value="10" min="1" max="50"><button class="btn" id="fgen">✨ Generate from notes</button></details>`+
+        (cards.length?`<div class="card" id="fc" style="margin-top:12px;text-align:center;font-size:18px;cursor:pointer;min-height:110px;display:flex;align-items:center;justify-content:center">${esc(flip?cards[i].a:cards[i].q)}</div><div class="m" style="text-align:center">tap to flip · ${i+1}/${cards.length}</div><button class="btn s" id="fp">◀</button><button class="btn s" id="fn">▶</button><button class="btn s" id="fs">🔀</button><button class="btn s" id="fd">Delete</button>`:'<p class="m">No cards yet.</p>');
+        $('#fd0').ontoggle=()=>{op=$('#fd0').open};
+        $('#fadd').onclick=()=>{const q=$('#fq').value.trim(),a=$('#fa').value.trim();if(!q||!a)return;cards.push({q,a});store.set('cards',cards);i=cards.length-1;flip=false;op=true;draw()};
+        $('#ffl').onchange=e=>{const f=e.target.files[0];if(f)f.text().then(t=>$('#ft').value=t)};
+        $('#fgen').onclick=()=>{const c=mkCards($('#ft').value,+$('#fn2').value||10);if(!c.length){alert('Paste a few full sentences first.');return}cards=cards.concat(c);store.set('cards',cards);i=cards.length-c.length;flip=false;op=false;draw()};
+        if(cards.length){$('#fc').onclick=()=>{flip=!flip;draw()};$('#fn').onclick=()=>{i=(i+1)%cards.length;flip=false;draw()};$('#fp').onclick=()=>{i=(i-1+cards.length)%cards.length;flip=false;draw()};$('#fs').onclick=()=>{i=Math.floor(Math.random()*cards.length);flip=false;draw()};$('#fd').onclick=()=>{cards.splice(i,1);store.set('cards',cards);i=0;flip=false;draw()}}};draw()},
+    g(){$('#tb2').innerHTML='<h3>Average calculator</h3><div id="gr"></div><button class="btn s" id="ga">+ subject</button><p id="go2"></p>';
+      const calc=()=>{let s=0,c=0;document.querySelectorAll('#gr div').forEach(d=>{const i=d.querySelectorAll('input'),v=parseFloat(i[1].value),w=parseFloat(i[2].value)||1;if(!isNaN(v)){s+=v*w;c+=w}});$('#go2').innerHTML=c?'Weighted average: <b>'+(s/c).toFixed(1)+'%</b>':''};
+      const add=()=>{const d=document.createElement('div');d.style.cssText='display:flex;gap:6px';d.innerHTML='<input placeholder="Subject" style="flex:3"><input type="number" placeholder="Score %" style="flex:1"><input type="number" placeholder="Credit" value="1" style="flex:1">';$('#gr').appendChild(d);d.oninput=calc};
+      $('#ga').onclick=add;for(let i=0;i<5;i++)add()},
+    n(){$('#tb2').innerHTML='<h3>My notes</h3><textarea id="nt" rows="12" placeholder="Saved on this phone only"></textarea>';$('#nt').value=store.get('notes','');$('#nt').oninput=()=>store.set('notes',$('#nt').value)},
+    p(){let s=25*60;$('#tb2').innerHTML='<h3>Study timer</h3><div id="tm" style="font-size:52px;text-align:center;font-weight:700">25:00</div><div style="text-align:center"><button class="btn" id="ts1">Start</button> <button class="btn s" id="ts2">Reset</button></div><div class="tabs" style="margin-top:10px"><button class="btn" data-m="25">25 min</button><button class="btn" data-m="45">45 min</button><button class="btn" data-m="5">5 min break</button></div>';
+      const show=()=>$('#tm').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+      $('#ts1').onclick=()=>{clearInterval(iv);iv=setInterval(()=>{s--;show();if(s<=0){clearInterval(iv);navigator.vibrate&&navigator.vibrate([300,100,300]);alert('Time is up!')}},1000)};
+      $('#ts2').onclick=()=>{clearInterval(iv);s=25*60;show()};document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{clearInterval(iv);s=+b.dataset.m*60;show()})}};
+  document.querySelectorAll('#tt2 button').forEach(b=>b.onclick=()=>{clearInterval(iv);document.querySelectorAll('#tt2 button').forEach(x=>x.classList.toggle('on',x===b));T[b.dataset.t]()});T.a();
+};
+
+/* ---- Bottom tab bar (phones) + theme toggle ---- */
+function buildBB(){let b=$('#bb');if(!b){b=document.createElement('div');b.id='bb';document.body.appendChild(b)}
+  const bs=[...document.querySelectorAll('#nav button[data-v]')].slice(0,4);
+  b.innerHTML=bs.map(x=>`<button data-v="${x.dataset.v}" onclick="go('${x.dataset.v}')"><i>${ico[x.dataset.v]||'•'}</i>${esc(String(lbl[x.dataset.v]).split(' ')[0])}</button>`).join('')+'<button id="bm"><i>☰</i>More</button>';
+  $('#bm').onclick=()=>$('#mb').click();b.hidden=false}
+const _s5=start;start=function(){_s5();buildBB()};
+const _g5=go;go=function(v){_g5(v);document.querySelectorAll('#bb button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v))};
+const _l5=login;login=function(){_l5();const b=$('#bb');if(b)b.hidden=true};
+try{const th=localStorage.theme;if(th)document.documentElement.dataset.theme=th}catch(e){}
+$('#th').onclick=()=>{const c=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.theme=n}catch(e){}};
+
+</script></body></html>
